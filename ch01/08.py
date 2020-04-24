@@ -1,3 +1,5 @@
+# 08 Cipher
+
 def cipher(str):
     new_str = ''
     for char in str:
@@ -7,3 +9,4 @@ def cipher(str):
     return new_str
 
 print(cipher("Hello there"))
+print(cipher(cipher("Hello there")))
