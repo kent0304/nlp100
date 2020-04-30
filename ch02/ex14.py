@@ -1,4 +1,4 @@
-### ex13.py
+### ex14.py
 ### 先頭からN行を出力
 
 ##--------pyhton------------
@@ -17,6 +17,11 @@ with open ('popular-names.txt') as f:
 ##---------end--------------
 
 ##---------UNIX-------------
+# head -n 行数　ファイル名
+# head -n 2  popular-names.txt
+
 # sed -n '(開始行),(終了行)p' (ファイル名)
 # cat popular-names.txt | sed -n '1,(Nの値)p'
 ##---------end--------------
+
+# OK
