@@ -31,4 +31,11 @@ with open ('col2.txt', mode="w") as f:
 ##---------UNIX-------------
 # -fオプションは区切られた項目の中で，表示したい項目を指定
 # cut -f (項目数) (ファイル名)
+# cut -f 1 popular-names.txt
+# cut -f 2 popular-names.txt
+
+
+# diffを取る
+# diff --report-identical-files col1.txt col1_unix.txt
+# diff --report-identical-files col2.txt col2_unix.txt
 ##---------end--------------

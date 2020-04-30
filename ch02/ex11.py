@@ -17,4 +17,8 @@ with open ('popular-names-without-tabs-python.txt', mode="w") as f:
 
 ##---------UNIX-------------
 # expand -t 2 (入力ファイル名) > (出力ファイル名)
+# expand -t 2 popular-names.txt > popular-names-without-tabs-unix.txt
+
+# diffを取る
+# diff --report-identical-files popular-names-without-tabs-python.txt popular-names-without-tabs-unix.txt
 ##---------end--------------
