@@ -10,7 +10,7 @@ with open ('popular-names.txt') as f:
 
 # 1列目の要素だけのリスト
 # ['Mary', 'Anna', ...]
-elements = [content.split('\t')[0] for content in contents]
+elements = [content.split('\t')[0] for content in contents ]
 
 newlst = sorted(elements, key=Counter(elements).get, reverse=True)
 c = Counter(newlst)

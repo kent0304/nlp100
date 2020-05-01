@@ -24,7 +24,7 @@ with open ('popular-names.txt') as f:
 ##---------end--------------
 
 ##---------UNIX-------------
-# tail -n 行数　ファイル名
+# tail -n 行数 ファイル名
 # tail -n 4  popular-names.txt
 
 ##---------end--------------
