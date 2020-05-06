@@ -6,7 +6,7 @@ import re
 # 文字列リテラルの頭にrをつけると，エスケープシーケンスが無効
 # findallは重複しない全てのマッチを文字列リストで表す
 # british_textは複数行からなるので，re.MULTILINEを指定すると文字列の先頭と末尾にもアクセスできる
-result = re.findall(r'^(.*\==+.*==+.*)$', british_text, flags=re.MULTILINE)
+result = re.findall(r'^(.*==+.*==+.*)$', british_text, flags=re.MULTILINE)
 
 
 # 各行において'==' が入っていればカウントしレベルを付与
