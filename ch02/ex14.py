@@ -17,7 +17,7 @@ with open ('popular-names.txt') as f:
 ##---------end--------------
 
 ##---------UNIX-------------
-# head -n 行数　ファイル名
+# head -n 行数 ファイル名
 # head -n 2  popular-names.txt
 
 # sed -n '(開始行),(終了行)p' (ファイル名)

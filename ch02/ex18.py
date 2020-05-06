@@ -6,14 +6,11 @@
 with open ('popular-names.txt') as f:
     contents = f.readlines()
 
-# 3列目の要素だけのリスト
-# ['Mary', 'Anna', ...]
-elements = [content.split('\t')[2] for content in contents]
+contents.sort(key=lambda content: float(content.split('\t')[2]), reverse=True)
 
 
-elements = [int(elm) for elm in elements]
-newlst = sorted(elements, reverse=True)
-
+for content in contents:
+    print(content, end='')
 
 
 
@@ -21,6 +18,13 @@ newlst = sorted(elements, reverse=True)
 ##---------end--------------
 
 ##---------UNIX-------------
-# わからない
+# # 3カラム目を数値として逆順ソート
+# sort hightemp.txt --key=3,3 --numeric-sort --reverse > result_test.txt
+#
+# # Pythonのプログラムで実行
+# python main.py > result.txt
+#
+# # 結果の確認
+# diff --report-identical-files result.txt result_test.txt
 
 ##---------end--------------

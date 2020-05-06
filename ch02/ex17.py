@@ -9,7 +9,7 @@ with open ('col1.txt') as f:
         string_list.append(elm)
 
 # 重複した要素を持たないset型を利用
-print(set(string_list))
+print(list(sorted(set(string_list))))
 
 
 

@@ -30,7 +30,7 @@ with open ('merge.txt', mode="w") as f:
 
 ##---------UNIX-------------
 # dオプションで結合文字指定
-# paste -d " "col1.txt col2.txt > merge_unix.txt
+# paste -d " " col1.txt col2.txt > merge_unix.txt
 
 # diffを取る
 # diff --report-identical-files merge.txt merge_unix.txt
