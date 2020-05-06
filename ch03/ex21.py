@@ -1,18 +1,7 @@
 import jsonload
-res = jsonload.res
-# resの中身
-# [
-#   {{"title": "イギリス", "text": "イギリスという国は..."}, 68865}
-#   {{"title": "ドイツ", "text": "ドイツという国は..."}, 103093}
-#   {{"title": "フランス", "text": "フランスという国は..."}, 85398}
-# ]
+british_text = jsonload.british_text
 
-import re
-
-for content in res:
-    # 各contentは2つの要素が入ったtuple型
-    if (content[0]['title']=='イギリス'):
-        british_text = content[0]['text']
+import re 
 
 
 # 文字列リテラルの頭にrをつけると，エスケープシーケンスが無効
