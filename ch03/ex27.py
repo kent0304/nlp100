@@ -12,8 +12,10 @@ new_result = re.findall(r'^\|(.+?)\s*=\s*(.+?)(?:(?=\n\|)|(?=\n$))', result[0], 
 
 dict = {}
 
-# ex26.py 変更部分------------------------------------
+# ex27.py 変更部分------------------------------------
+# 強調マークアップの除去
 markup_pattern = re.compile(r'\'{2}|\'{3}|\'{5}', flags=re.MULTILINE)
+# 内部リンクの除去
 link_pattern = re.compile(r'\[\[(?:[^|]*?\|)??([^|]*?)\]\]', flags=re.MULTILINE)
 
 for line in new_result:
