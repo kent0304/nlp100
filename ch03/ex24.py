@@ -1,3 +1,7 @@
+# ファイル参照の抽出
+## 記事から参照されているメディアファイルをすべて抜き出せ．
+## [[ファイル:          |thumb|説明文]]
+
 import jsonload
 british_text = jsonload.british_text
 

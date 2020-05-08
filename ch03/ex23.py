@@ -1,3 +1,6 @@
+# セクション構造Permalink
+## 記事中に含まれるセクション名とそのレベル（例えば”== セクション名 ==”なら1）を表示せよ．
+
 import jsonload
 british_text = jsonload.british_text
 

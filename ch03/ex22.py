@@ -1,3 +1,6 @@
+# カテゴリ名の抽出
+## [[ Category: ]]
+
 import jsonload
 british_text = jsonload.british_text
 
