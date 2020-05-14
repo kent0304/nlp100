@@ -27,14 +27,24 @@ for ma in ma_list:
         # 形態素の情報をtotal_listに追加
         total_list.append(ma_dict)
 
-# -------- ここからex36 ------------------
-# 登場する形態素全て格納するリスト
-ma_list=[]
-for ma_dict in total_list:
-    ma_list.append(ma_dict['surface'])
+# -------- ここからex37 ------------------
+# 猫と共起する形態素を格納するリスト
+cooccur = []
+for idx in range(len(total_list)-2):
+    # 注目する形態素の前の形態素
+    prev_dict = total_list[idx]
+    # 注目する形態素
+    middle_dict = total_list[idx+1]
+    # 注目する携帯その後ろの形態素
+    next_dict = total_list[idx+2]
 
-c = collections.Counter(ma_list)
+    if middle_dict['surface'] == '猫':
+        cooccur.append(prev_dict['surface'])
+        cooccur.append(next_dict['surface'])
 
+
+
+c = collections.Counter(cooccur)
 # (要素, 出現回数)という形のタプルを出現回数順に並べたリスト c.most_common()
 top10 = c.most_common()[:10]
 
@@ -49,7 +59,7 @@ for tupple in top10:
 
 
 plt.bar(left, height)
-plt.title("頻度上位10語")
+plt.title("「猫」と共起頻度の高い上位10語")
 plt.xlabel("word")
 plt.ylabel("count")
 plt.show()
