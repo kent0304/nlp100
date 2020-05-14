@@ -23,20 +23,39 @@ for ma in ma_list:
         # 形態素の情報をtotal_listに追加
         total_list.append(ma_dict)
 
-# -------- ここからex33 ------------------
+# -------- ここからex34 ------------------
 
-# 「AのB」を格納するリスト
-linked_norn=[]
+# 名詞の連接を管理するリスト
+norn_list=[]
+# 名詞の連接をまとめるリスト
+total_norn_list = []
+
 for idx in range(len(total_list)-2):
     # 先頭の形態素
     prev_dict = total_list[idx]
-    # 次の形態素
-    middle_dict = total_list[idx+1]
     # 次の次の形態素
-    next_dict = total_list[idx+2]
+    next_dict = total_list[idx+1]
     if prev_dict['pos'] == '名詞':
-        if middle_dict['surface'] == 'の':
-            if next_dict['pos'] == '名詞':
-                linked_norn.append(prev_dict['surface'] + middle_dict['surface'] + next_dict['surface'])
+        norn_list.append(prev_dict['surface'])
+        if next_dict['pos'] == '名詞':
+            norn_list.append(next_dict['surface'])
+        else:
+            total_norn_list.append(norn_list)
+            norn_list = []
 
-print(linked_norn)
+
+
+# 名詞の連接最高記録をmax
+max = 0
+# 一番長い名詞の連接
+ans = []
+for list in total_norn_list:
+    # if len(list)>17:
+    #     print(list)
+    if max < len(list):
+        max = len(list)
+        ans = list
+
+print(ans)
+
+# なぜか一番長い名詞の連接は英語が出てくる
