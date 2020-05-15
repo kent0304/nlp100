@@ -27,7 +27,7 @@ for ma in ma_list:
         # 形態素の情報をtotal_listに追加
         total_list.append(ma_dict)
 
-# -------- ここからex39 ------------------
+# -------- ここからex39  ------------------
 # 登場する形態素全て格納するリスト
 ma_list=[]
 for ma_dict in total_list:
