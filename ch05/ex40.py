@@ -15,7 +15,7 @@ class Morph:
 
     def __str__(self):
         '''オブジェクトの文字列表現'''
-        return 'surface[{}]\tbase[{}]\tpos[{}]\tpos1[{}]'.format(self.surface, self.base, self.pos, self.pos1)
+        return 'surface[{}] base[{}] pos[{}] pos1[{}]'.format(self.surface, self.base, self.pos, self.pos1)
 
 
 

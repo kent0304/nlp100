@@ -1,3 +1,12 @@
+# 41. 係り受け解析結果の読み込み（文節・係り受け）
+'''
+0に加えて，文節を表すクラスChunkを実装せよ．このクラスは形態素（Morphオブジェクト）
+のリスト（morphs），係り先文節インデックス番号（dst），係り元文節インデックス番号のリスト（srcs）
+をメンバ変数に持つこととする．さらに，入力テキストのCaboChaの解析結果を読み込み，
+１文をChunkオブジェクトのリストとして表現し，8文目の文節の文字列と係り先を表示せよ．
+第5章の残りの問題では，ここで作ったプログラムを活用せよ．
+'''
+
 import CaboCha
 import re
 
@@ -18,8 +27,7 @@ class Morph:
 
     def __str__(self):
         '''オブジェクトの文字列表現'''
-        return 'surface[{}]\tbase[{}]\tpos[{}]\tpos1[{}]'\
-            .format(self.surface, self.base, self.pos, self.pos1)
+        return 'surface[{}] base[{}] pos[{}] pos1[{}]'.format(self.surface, self.base, self.pos, self.pos1)
 
 
 class Chunk:
@@ -31,8 +39,11 @@ class Chunk:
 
     def __init__(self):
         '''初期化'''
+        # 形態素のリスト
         self.morphs = []
+        # 係り元文節のインデックス
         self.srcs = []
+        # 係り先節文節のインデックス
         self.dst = -1
 
     def __str__(self):
@@ -40,7 +51,7 @@ class Chunk:
         surface = ''
         for morph in self.morphs:
             surface += morph.surface
-        return '{}\tsrcs{}\tdst[{}]'.format(surface, self.srcs, self.dst)
+        return '{} srcs{} dst[{}]'.format(surface, self.srcs, self.dst)
 
 
 def neco_lines():
