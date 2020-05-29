@@ -1,3 +1,15 @@
+# 50. データの入手・整形
+'''
+News Aggregator Data Setをダウンロードし、以下の要領で学習データ（train.txt），検証データ（valid.txt），評価データ（test.txt）を作成せよ．
+
+ダウンロードしたzipファイルを解凍し，readme.txtの説明を読む．
+情報源（publisher）が”Reuters”, “Huffington Post”, “Businessweek”, “Contactmusic.com”, “Daily Mail”の事例（記事）のみを抽出する．
+抽出された事例をランダムに並び替える．
+抽出された事例の80%を学習データ，残りの10%ずつを検証データと評価データに分割し，それぞれtrain.txt，valid.txt，test.txtというファイル名で保存する．
+ファイルには，１行に１事例を書き出すこととし，カテゴリ名と記事見出しのタブ区切り形式とせよ（このファイルは後に問題70で再利用する）．
+学習データと評価データを作成したら，各カテゴリの事例数を確認せよ．
+'''
+
 import csv
 import random
 from sklearn.model_selection import train_test_split
