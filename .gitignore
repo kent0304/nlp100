@@ -1,2 +1,8 @@
 master.zip
 cabocha-master
+News Aggregator Data Set
+.DS_Store
+newsdata.txt
+ch06/train.feature.txt
+ch06/valid.feature.txt
+ch06/test.feature.txt
