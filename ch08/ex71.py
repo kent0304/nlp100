@@ -4,8 +4,12 @@ import torch.nn as nn
 import torch
 
 input_data = pd.read_csv('data/X_train.txt',sep=' ', header=None)
+# prepare features
 x1 = input_data.iloc[0, :]
 x1_4 = input_data.iloc[0:4, :]
+# convert pandas df to tensor
+x1 = torch.tensor(x1.values, dtype=torch.float)
+x1_4 = torch.tensor(x1_4.values, dtype=torch.float)
 
 
 
@@ -19,9 +23,6 @@ class NN(nn.Module):
         return self.fc1(x)
 
 model = NN()
-
-x1 = torch.tensor(x1.values, dtype=torch.float)
-x1_4 = torch.tensor(x1_4.values, dtype=torch.float)
 
 y1 = torch.softmax(model.forward(x1), dim=-1)
 print(y1)
