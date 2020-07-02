@@ -1,0 +1,124 @@
+import numpy as np
+import pandas as pd
+import torch.nn as nn
+import torch
+from torch.utils.data import Dataset
+from torch.utils.data import DataLoader
+
+# 学習データ用意
+x_train = pd.read_csv('data/X_train.txt',sep=' ', header=None)
+x_valid = pd.read_csv('data/X_valid.txt',sep=' ', header=None)
+x_test = pd.read_csv('data/X_test.txt',sep=' ', header=None)
+# convert pandas df to tensor
+x_train = torch.tensor(x_train.values, dtype=torch.float)
+x_valid = torch.tensor(x_valid.values, dtype=torch.float)
+x_test = torch.tensor(x_test.values, dtype=torch.float)
+
+# 教師ラベル用意
+y_train = pd.read_csv('data/y_train.txt', header=None)
+y_valid = pd.read_csv('data/y_valid.txt', header=None)
+y_test = pd.read_csv('data/y_test.txt', header=None)
+# convert pandas df to tensor
+y_train = torch.tensor(y_train.values, dtype=torch.long).flatten()
+y_valid = torch.tensor(y_valid.values, dtype=torch.long).flatten()
+y_test = torch.tensor(y_test.values, dtype=torch.long).flatten()
+
+
+class NN(nn.Module):
+    def __init__(self, input=300, output=4):
+        super(NN, self).__init__()
+        self.fc1 = nn.Linear(input, output, bias=False)
+        nn.init.normal_(self.fc1.weight, mean=0.0, std=1.0) # 正規分布で重みを初期化
+
+    def forward(self, x):
+        return self.fc1(x)
+
+# データセットの作成
+class MyDataset(Dataset):
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    def __len__(self):
+        return len(self.y)
+
+    # インデックスidxで返り値指定
+    def __getitem__(self, idx):
+        return [self.x[idx], self.y[idx]]
+
+# define accuracy
+def calculate_accuracy(model, loader):
+    model.eval()
+    # total = 0
+    correct = 0
+    cnt = 0
+    with torch.no_grad():
+        for inputs, labels in loader:
+            outputs = model(inputs)
+            pred = torch.argmax(outputs, dim=-1)
+            # total += len(inputs)
+            correct += (pred == labels).sum().item()
+            cnt += 1
+    return correct / cnt
+
+
+# Prepare Dataset
+dataset_train = MyDataset(x_train, y_train)
+dataset_valid = MyDataset(x_valid, y_valid)
+dataset_test = MyDataset(x_test, y_test)
+
+# Prepare DataLoader
+dataloader_train = DataLoader(dataset_train, batch_size=4, shuffle=True)
+dataloader_valid = DataLoader(dataset_valid, batch_size=len(dataset_valid), shuffle=False)
+dataloader_test = DataLoader(dataset_test, batch_size=len(dataset_test), shuffle=False)
+
+
+
+# define a model
+model = NN()
+
+# define a loss function
+loss_function = nn.CrossEntropyLoss()
+
+# define a optimizer
+optimizer = torch.optim.SGD(model.parameters(), lr=0.001)
+
+# Training
+num__epochs = 10
+for epoch in range(num__epochs):
+    # start training
+    model.train()
+    loss_train = 0.0
+    for i, (input, label) in enumerate(dataloader_train):
+        # 勾配をゼロで初期化
+        optimizer.zero_grad()
+
+        # 順伝播 + 誤差逆伝播 + 重み更新
+        output = model.forward(input)
+        loss = loss_function(output, label)
+        loss.backward()
+        optimizer.step()
+
+        # recording loss
+        loss_train += loss.item()
+
+    # calcurate loss per batch
+    loss_train = loss_train / i
+
+
+    # calcurate loss in valid data
+    model.eval()
+    with torch.no_grad():
+        inputs, labels = next(iter(dataloader_valid))
+        outputs = model.forward(inputs)
+        loss_valid = loss_function(outputs, labels)
+
+    # output logs
+    print(f'epoch: {epoch + 1}, loss_train:{loss_train:.4f}, loss_valid:{loss_valid:.4f}')
+
+
+
+# calculate accuracy
+acc_train = calculate_accuracy(model, dataset_train)
+acc_test = calculate_accuracy(model, dataset_test)
+print(f'正解率(学習データ):{acc_train:.3f}')
+print(f'正解率(評価データ):{acc_test:.3f}')
