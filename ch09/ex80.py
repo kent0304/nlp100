@@ -40,19 +40,25 @@ dict = {word: i+1 for i, (word, cnt) in enumerate(dict) if cnt>1}
 # for key in list(dict)[:10]:
 #     print(f'{key}: {dict[key]}')
 
-# 関数定義
+# 単語のIDを返す関数
+def encode_word(word,dict):
+    return dict[word]
+
+
+
+# 文章のIDを返す関数
 def encode_sentence(sentence,dict):
     new_sentence = []
     # 特殊表現は正規表現でスペースに変換
     sentence = re.sub('[!"#$%&\'\\\\()*+,-./:;<=>?@[\\]^_`{|}~「」〔〕“”〈〉『』【】＆＊・（）＄＃＠。、？！｀＋￥％]', ' ', sentence)
     for word in sentence.split():
         if word in dict:
-            word = dict[word]
+            word = encode_word(word,dict)
         else:
             word = 0
         new_sentence.append(str(word))
     return ' '.join(new_sentence)
 
 # 以下で確認
-sentence = "Home Depot Finally Bids Farewell to Fax Machines"
-print(encode_sentence(sentence, dict))
+# sentence = "Home Depot Finally Bids Farewell to Fax Machines"
+# print(encode_sentence(sentence, dict))
