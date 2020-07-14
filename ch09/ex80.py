@@ -11,6 +11,7 @@ import pandas as pd
 import numpy as np
 import re
 
+
 # 1列目にカテゴリ、2列目に記事のタイトル（文章そのまま）
 x_train = pd.read_csv('../ch08/data/train.txt', sep='\t', header=None)
 # 記事タイトルのseries
@@ -18,7 +19,6 @@ x_train = x_train.iloc[:, 1]
 
 # 辞書型で用意
 dict = {}
-
 
 for sentence in x_train:
     # 特殊表現は正規表現で除去
@@ -40,25 +40,49 @@ dict = {word: i+1 for i, (word, cnt) in enumerate(dict) if cnt>1}
 # for key in list(dict)[:10]:
 #     print(f'{key}: {dict[key]}')
 
-# 単語のIDを返す関数
-def encode_word(word,dict):
-    return dict[word]
-
-
+# # 単語のIDを返す関数
+# def encode_word(word,dict):
+#     return dict[word]
 
 # 文章のIDを返す関数
-def encode_sentence(sentence,dict):
+def encode_sentence(target_sentence):
+
+    # 1列目にカテゴリ、2列目に記事のタイトル（文章そのまま）
+    x_train = pd.read_csv('../ch08/data/train.txt', sep='\t', header=None)
+    # 記事タイトルのseries
+    x_train = x_train.iloc[:, 1]
+
+    # 辞書型で用意
+    dict = {}
+
+    for sentence in x_train:
+        # 特殊表現は正規表現で除去
+        sentence = re.sub('[!"#$%&\'\\\\()*+,-./:;<=>?@[\\]^_`{|}~「」〔〕“”〈〉『』【】＆＊・（）＄＃＠。、？！｀＋￥％]', ' ', sentence)
+        for word in sentence.split():
+            if word in dict:
+                dict[word] += 1
+            else:
+                dict[word] = 1
+
+    # 並び替え
+    dict = sorted(dict.items(), key=lambda x:x[1], reverse=True)
+
+    # 単語ID管理
+    dict = {word: i+1 for i, (word, cnt) in enumerate(dict) if cnt>1}
+
+
     new_sentence = []
     # 特殊表現は正規表現でスペースに変換
-    sentence = re.sub('[!"#$%&\'\\\\()*+,-./:;<=>?@[\\]^_`{|}~「」〔〕“”〈〉『』【】＆＊・（）＄＃＠。、？！｀＋￥％]', ' ', sentence)
-    for word in sentence.split():
+    target_sentence = re.sub('[!"#$%&\'\\\\()*+,-./:;<=>?@[\\]^_`{|}~「」〔〕“”〈〉『』【】＆＊・（）＄＃＠。、？！｀＋￥％]', ' ', target_sentence)
+    for word in target_sentence.split():
         if word in dict:
-            word = encode_word(word,dict)
+            word = dict[word]
         else:
             word = 0
-        new_sentence.append(str(word))
-    return ' '.join(new_sentence)
+        new_sentence.append(int(word))
+
+    return new_sentence
 
 # 以下で確認
 # sentence = "Home Depot Finally Bids Farewell to Fax Machines"
-# print(encode_sentence(sentence, dict))
+# print(encode_sentence(sentence))
