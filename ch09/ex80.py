@@ -32,7 +32,7 @@ for sentence in x_train:
 # 並び替え
 dict = sorted(dict.items(), key=lambda x:x[1], reverse=True)
 
-# 単語ID管理
+# 単語IDを付与
 dict = {word: i+1 for i, (word, cnt) in enumerate(dict) if cnt>1}
 
 
