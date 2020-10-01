@@ -24,15 +24,15 @@ for sentence in x_train:
     # 特殊表現は正規表現で除去
     sentence = re.sub('[!"#$%&\'\\\\()*+,-./:;<=>?@[\\]^_`{|}~「」〔〕“”〈〉『』【】＆＊・（）＄＃＠。、？！｀＋￥％]', ' ', sentence)
     for word in sentence.split():
-        if word in dict:
-            dict[word] += 1
+        if word.lower() in dict:
+            dict[word.lower()] += 1
         else:
-            dict[word] = 1
+            dict[word.lower()] = 1
 
 # 並び替え
 dict = sorted(dict.items(), key=lambda x:x[1], reverse=True)
 
-# 単語IDを付与
+# 単語ID
 dict = {word: i+1 for i, (word, cnt) in enumerate(dict) if cnt>1}
 
 
@@ -59,10 +59,10 @@ def encode_sentence(target_sentence):
         # 特殊表現は正規表現で除去
         sentence = re.sub('[!"#$%&\'\\\\()*+,-./:;<=>?@[\\]^_`{|}~「」〔〕“”〈〉『』【】＆＊・（）＄＃＠。、？！｀＋￥％]', ' ', sentence)
         for word in sentence.split():
-            if word in dict:
-                dict[word] += 1
+            if word.lower() in dict:
+                dict[word.lower()] += 1
             else:
-                dict[word] = 1
+                dict[word.lower()] = 1
 
     # 並び替え
     dict = sorted(dict.items(), key=lambda x:x[1], reverse=True)
@@ -75,8 +75,8 @@ def encode_sentence(target_sentence):
     # 特殊表現は正規表現でスペースに変換
     target_sentence = re.sub('[!"#$%&\'\\\\()*+,-./:;<=>?@[\\]^_`{|}~「」〔〕“”〈〉『』【】＆＊・（）＄＃＠。、？！｀＋￥％]', ' ', target_sentence)
     for word in target_sentence.split():
-        if word in dict:
-            word = dict[word]
+        if word.lower() in dict:
+            word = dict[word.lower()]
         else:
             word = 0
         new_sentence.append(int(word))
@@ -84,5 +84,5 @@ def encode_sentence(target_sentence):
     return new_sentence
 
 # 以下で確認
-# sentence = "Home Depot Finally Bids Farewell to Fax Machines"
+# sentence = "home depot finally bids farewell to fax machines"
 # print(encode_sentence(sentence))

@@ -37,9 +37,9 @@ class RNN(nn.Module):
         y = self.softmax(y)
         return y
 
-# model = RNN()
+model = RNN()
 
-# print(model(torch.tensor([[146, 2969, 996, 2856, 4934, 1, 0, 0]])))
+print(model(torch.tensor([[146, 2969, 996, 2856, 4934, 1, 0, 0]])))
 
 
 
